@@ -16,6 +16,8 @@
     }
     if (!points.length) return;
 
+    var base = container.dataset.base || '/';
+
     var map = L.map(container, { scrollWheelZoom: false });
     container._leafletMap = map;
 
@@ -37,7 +39,7 @@
 
       var popupHtml =
         '<div class="map-popup">' +
-        '<img src="/assets/' + point.cover + '.jpg" alt="' + point.title + '" />' +
+        '<img src="' + base + 'assets/' + point.cover + '.jpg" alt="' + point.title + '" />' +
         '<h4>' + point.title + '</h4>' +
         '<p>' + point.tagline + '</p>' +
         '<a class="btn btn-small btn-gold" href="' + directionsUrl + '" target="_blank" rel="noopener">Itinéraire <span class="btn-arrow">→</span></a>' +

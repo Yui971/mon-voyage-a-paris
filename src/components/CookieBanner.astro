@@ -1,3 +1,7 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
 <div class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite" aria-label="Information sur les cookies">
   <div class="cookie-banner-inner">
     <button class="cookie-close" id="cookie-close" type="button" aria-label="Fermer">
@@ -10,7 +14,7 @@
       Ce site n'utilise aucun cookie publicitaire ni de mesure d'audience. Certaines pages
       chargent des ressources externes (polices Google Fonts, fonds de carte OpenStreetMap) qui
       peuvent transmettre votre adresse IP à ces services tiers.
-      <a href="/confidentialite">En savoir plus</a>.
+      <a href={`${base}confidentialite`}>En savoir plus</a>.
     </p>
     <div class="cookie-actions">
       <button class="btn btn-gold btn-small" id="cookie-accept" type="button">Accepter</button>

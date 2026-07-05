@@ -5,6 +5,7 @@ import LieuCard from '../components/LieuCard.astro';
 import { lieux, ambiance } from '../data/lieux.js';
 
 const arrondissements = [...new Set(lieux.map((lieu) => lieu.arrondissement))];
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
@@ -24,7 +25,7 @@ const arrondissements = [...new Set(lieux.map((lieu) => lieu.arrondissement))];
       </p>
       <div class="hero-actions">
         <a class="btn btn-gold" href="#lieux">Découvrir les lieux <span class="btn-arrow">→</span></a>
-        <a class="btn-hover-fill" href="/guide/se-deplacer">
+        <a class="btn-hover-fill" href={`${base}guide/se-deplacer`}>
           <span class="btn-hover-fill-label">Se déplacer</span>
           <span class="btn-hover-fill-reveal">
             <span>Se déplacer</span>
@@ -59,7 +60,7 @@ const arrondissements = [...new Set(lieux.map((lieu) => lieu.arrondissement))];
     <p class="lieu-empty" id="lieu-empty" hidden>Aucun lieu ne correspond à votre recherche.</p>
   </section>
 
-  <script src="/scripts/filter.js" is:inline></script>
+  <script src={`${base}scripts/filter.js`} is:inline></script>
 
   <section id="ambiance" class="container">
     <div class="section-heading" data-reveal="up">

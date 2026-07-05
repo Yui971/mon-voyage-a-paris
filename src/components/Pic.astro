@@ -10,12 +10,13 @@ interface Props {
 }
 
 const { file, alt, loading = 'lazy', fetchpriority = 'auto', class: className } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
 <picture>
-  <source srcset={`/assets/${file}.avif`} type="image/avif" />
+  <source srcset={`${base}assets/${file}.avif`} type="image/avif" />
   <img
-    src={`/assets/${file}.jpg`}
+    src={`${base}assets/${file}.jpg`}
     alt={alt}
     loading={loading}
     fetchpriority={fetchpriority}

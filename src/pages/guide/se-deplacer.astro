@@ -10,6 +10,7 @@ const mapPoints = lieux.map((lieu) => ({
   coords: lieu.coords,
   cover: lieu.cover,
 }));
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
@@ -30,7 +31,7 @@ const mapPoints = lieux.map((lieu) => ({
   </section>
 
   <section class="container">
-    <a class="back-link" href="/"><span class="back-arrow">←</span> Retour à l'accueil</a>
+    <a class="back-link" href={base}><span class="back-arrow">←</span> Retour à l'accueil</a>
 
     <div class="chapter-label" data-reveal="up">
       <span class="chapter-num">I</span>
@@ -70,7 +71,7 @@ const mapPoints = lieux.map((lieu) => ({
     </p>
 
     <div class="map-layout" data-reveal="up">
-      <div id="lieu-map" class="map-shell" data-points={JSON.stringify(mapPoints)}></div>
+      <div id="lieu-map" class="map-shell" data-points={JSON.stringify(mapPoints)} data-base={base}></div>
       <div class="map-list" id="lieu-map-list">
         {mapPoints.map((point) => (
           <button class="map-list-item" type="button" data-slug={point.slug}>
@@ -99,5 +100,5 @@ const mapPoints = lieux.map((lieu) => ({
   </section>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" is:inline></script>
-  <script src="/scripts/map.js" data-astro-rerun is:inline></script>
+  <script src={`${base}scripts/map.js`} data-astro-rerun is:inline></script>
 </BaseLayout>

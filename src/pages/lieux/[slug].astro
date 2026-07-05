@@ -14,6 +14,7 @@ export function getStaticPaths() {
 const { lieu } = Astro.props;
 const currentIndex = lieux.findIndex((l) => l.slug === lieu.slug);
 const related = Array.from({ length: 3 }, (_, i) => lieux[(currentIndex + i + 1) % lieux.length]);
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout title={`${lieu.title}, Paris`} description={lieu.intro}>
@@ -39,7 +40,7 @@ const related = Array.from({ length: 3 }, (_, i) => lieux[(currentIndex + i + 1)
   </section>
 
   <section class="container">
-    <a class="back-link" href="/#lieux"><span class="back-arrow">←</span> Retour aux lieux</a>
+    <a class="back-link" href={`${base}#lieux`}><span class="back-arrow">←</span> Retour aux lieux</a>
 
     <div class="lieu-meta" data-reveal="up">
       {lieu.metro.map((station) => (

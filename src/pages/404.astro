@@ -4,6 +4,7 @@ import LieuCard from '../components/LieuCard.astro';
 import { lieux } from '../data/lieux.js';
 
 const suggestions = lieux.slice(0, 3);
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
@@ -21,8 +22,8 @@ const suggestions = lieux.slice(0, 3);
     </div>
 
     <div class="hero-actions" data-reveal="up">
-      <a class="btn btn-gold" href="/">Retour à l'accueil <span class="btn-arrow">→</span></a>
-      <a class="btn btn-ghost" href="/#lieux">Voir les lieux</a>
+      <a class="btn btn-gold" href={base}>Retour à l'accueil <span class="btn-arrow">→</span></a>
+      <a class="btn btn-ghost" href={`${base}#lieux`}>Voir les lieux</a>
     </div>
 
     <div class="section-heading" data-reveal="up">

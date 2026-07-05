@@ -12,11 +12,12 @@ interface Props {
 }
 
 const { lieu } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
 <a
   class="lieu-card"
-  href={`/lieux/${lieu.slug}/`}
+  href={`${base}lieux/${lieu.slug}/`}
   data-reveal="up"
   data-search={`${lieu.title} ${lieu.tagline}`.toLowerCase()}
   data-arr={lieu.arrondissement}
