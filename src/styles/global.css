@@ -282,6 +282,10 @@ p {
 }
 
 /* Header */
+.site-nav-root {
+  position: relative;
+}
+
 .site-header {
   position: sticky;
   top: 0;
@@ -297,6 +301,28 @@ p {
   justify-content: space-between;
   padding-top: 18px;
   padding-bottom: 18px;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+}
+
+@media (min-width: 561px) {
+  .site-nav-root > nav {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .nav-inner {
+    height: 100%;
+    justify-content: flex-end;
+  }
+
+  .nav-inner .site-nav {
+    pointer-events: auto;
+  }
 }
 
 .site-logo {

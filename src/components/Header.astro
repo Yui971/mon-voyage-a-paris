@@ -10,29 +10,33 @@ const nav = [
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="site-header">
-  <div class="container">
-    <a class="site-logo" href={base}>Paris<span>.</span></a>
-    <input type="checkbox" id="nav-toggle" class="nav-toggle-input" />
-    <label for="nav-toggle" class="nav-toggle" aria-label="Ouvrir le menu">
-      <span></span><span></span><span></span>
-    </label>
-    <nav>
-      <ul class="site-nav">
-        {nav.map((item) => {
-          const isActive = item.href.includes('/guide/') && currentPath.includes('/guide/');
-          return (
-            <li>
-              <a href={item.href} class={isActive ? 'is-active' : ''}>
-                {item.label}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
-  </div>
-</header>
+<div class="site-nav-root">
+  <input type="checkbox" id="nav-toggle" class="nav-toggle-input" />
+  <header class="site-header">
+    <div class="container">
+      <a class="site-logo" href={base}>Paris<span>.</span></a>
+      <label for="nav-toggle" class="nav-toggle" aria-label="Ouvrir le menu">
+        <span></span><span></span><span></span>
+      </label>
+    </div>
+  </header>
+  <nav>
+    <div class="container nav-inner">
+    <ul class="site-nav">
+      {nav.map((item) => {
+        const isActive = item.href.includes('/guide/') && currentPath.includes('/guide/');
+        return (
+          <li>
+            <a href={item.href} class={isActive ? 'is-active' : ''}>
+              {item.label}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+    </div>
+  </nav>
+</div>
 
 <script is:inline>
   document.addEventListener('astro:page-load', () => {
