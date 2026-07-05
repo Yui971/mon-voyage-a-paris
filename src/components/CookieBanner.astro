@@ -1,0 +1,41 @@
+<div class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite" aria-label="Information sur les cookies">
+  <div class="cookie-banner-inner">
+    <button class="cookie-close" id="cookie-close" type="button" aria-label="Fermer">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+      </svg>
+    </button>
+    <p class="cookie-title">Vie privée &amp; cookies 🍪</p>
+    <p class="cookie-text">
+      Ce site n'utilise aucun cookie publicitaire ni de mesure d'audience. Certaines pages
+      chargent des ressources externes (polices Google Fonts, fonds de carte OpenStreetMap) qui
+      peuvent transmettre votre adresse IP à ces services tiers.
+      <a href="/confidentialite">En savoir plus</a>.
+    </p>
+    <div class="cookie-actions">
+      <button class="btn btn-gold btn-small" id="cookie-accept" type="button">Accepter</button>
+      <button class="btn btn-small" id="cookie-decline" type="button">Refuser</button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  document.addEventListener('astro:page-load', () => {
+    const banner = document.getElementById('cookie-banner');
+    if (!banner) return;
+    const KEY = 'paris-cookie-choice';
+
+    const dismiss = (value) => {
+      localStorage.setItem(KEY, value);
+      banner.classList.remove('is-visible');
+    };
+
+    if (!localStorage.getItem(KEY)) {
+      requestAnimationFrame(() => banner.classList.add('is-visible'));
+    }
+
+    document.getElementById('cookie-accept')?.addEventListener('click', () => dismiss('accepted'));
+    document.getElementById('cookie-decline')?.addEventListener('click', () => dismiss('declined'));
+    document.getElementById('cookie-close')?.addEventListener('click', () => dismiss('dismissed'));
+  });
+</script>

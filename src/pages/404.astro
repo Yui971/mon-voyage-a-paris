@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LieuCard from '../components/LieuCard.astro';
+import { lieux } from '../data/lieux.js';
+
+const suggestions = lieux.slice(0, 3);
+---
+
+<BaseLayout
+  title="Page introuvable, Paris"
+  description="Cette page n'existe pas ou plus."
+>
+  <section class="container legal-page not-found-page">
+    <div class="section-heading" data-reveal="up">
+      <span class="eyebrow">404</span>
+      <h1>Cette rue-là n'existe pas</h1>
+      <p>
+        Même le meilleur guide se perd parfois dans le tracé haussmannien de Paris. La page que
+        vous cherchez a changé d'adresse ou n'a jamais existé.
+      </p>
+    </div>
+
+    <div class="hero-actions" data-reveal="up">
+      <a class="btn btn-gold" href="/">Retour à l'accueil <span class="btn-arrow">→</span></a>
+      <a class="btn btn-ghost" href="/#lieux">Voir les lieux</a>
+    </div>
+
+    <div class="section-heading" data-reveal="up">
+      <span class="eyebrow">En attendant</span>
+      <h2>Quelques idées de balade</h2>
+    </div>
+    <div class="lieu-grid">
+      {suggestions.map((lieu) => <LieuCard lieu={lieu} />)}
+    </div>
+  </section>
+</BaseLayout>

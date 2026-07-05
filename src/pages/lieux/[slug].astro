@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Pic from '../../components/Pic.astro';
+import LieuCard from '../../components/LieuCard.astro';
+import { lieux } from '../../data/lieux.js';
+
+export function getStaticPaths() {
+  return lieux.map((lieu) => ({
+    params: { slug: lieu.slug },
+    props: { lieu },
+  }));
+}
+
+const { lieu } = Astro.props;
+const currentIndex = lieux.findIndex((l) => l.slug === lieu.slug);
+const related = Array.from({ length: 3 }, (_, i) => lieux[(currentIndex + i + 1) % lieux.length]);
+---
+
+<BaseLayout title={`${lieu.title}, Paris`} description={lieu.intro}>
+  <section class="hero lieu-hero">
+    <div class="hero-media" transition:name={`cover-${lieu.slug}`}>
+      <Pic file={lieu.cover} alt={lieu.title} loading="eager" fetchpriority="high" />
+    </div>
+    <div class="hero-content">
+      <span class="eyebrow">{lieu.arrondissement}</span>
+      <h1 transition:name={`title-${lieu.slug}`}>{lieu.title}</h1>
+      <p>{lieu.tagline}</p>
+      <div class="hero-actions">
+        <a
+          class="btn btn-gold"
+          href={`https://www.google.com/maps/dir/?api=1&destination=${lieu.coords[0]},${lieu.coords[1]}`}
+          target="_blank"
+          rel="noopener"
+        >
+          Itinéraire Google Maps <span class="btn-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <a class="back-link" href="/#lieux"><span class="back-arrow">←</span> Retour aux lieux</a>
+
+    <div class="lieu-meta" data-reveal="up">
+      {lieu.metro.map((station) => (
+        <span class="pill">🚇 {station}</span>
+      ))}
+    </div>
+
+    <div class="chapter-label" data-reveal="up">
+      <span class="chapter-num">I</span>
+      <span class="chapter-title">{lieu.chapters.one}</span>
+    </div>
+
+    <div class="lieu-body">
+      <div class="lieu-text">
+        <p class="lieu-intro" data-reveal="up">{lieu.intro}</p>
+
+        {lieu.images.length > 1 && (
+          <div class="diptych" data-reveal="up">
+            {lieu.images.slice(0, 2).map((img) => (
+              <figure>
+                <Pic file={img.file} alt={img.alt} />
+                <figcaption>{img.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
+        )}
+
+        <div class="chapter-label" data-reveal="up">
+          <span class="chapter-num">II</span>
+          <span class="chapter-title">{lieu.chapters.two}</span>
+        </div>
+        {lieu.description.map((paragraph) => <p data-reveal="up">{paragraph}</p>)}
+      </div>
+      <aside class="lieu-tip" data-reveal="pop">
+        <span class="eyebrow">Bon à savoir</span>
+        <p>{lieu.tip}</p>
+        <a
+          class="btn btn-small"
+          href={`https://www.google.com/maps/dir/?api=1&destination=${lieu.coords[0]},${lieu.coords[1]}`}
+          target="_blank"
+          rel="noopener"
+        >
+          Y aller <span class="btn-arrow">→</span>
+        </a>
+      </aside>
+    </div>
+
+    {lieu.images.length === 1 && (
+      <figure class="single-feature" data-reveal="up">
+        <Pic file={lieu.images[0].file} alt={lieu.images[0].alt} />
+        <figcaption>{lieu.images[0].caption}</figcaption>
+      </figure>
+    )}
+
+    {lieu.images.length > 2 && (
+      <>
+        <div class="chapter-label" data-reveal="up">
+          <span class="chapter-num">III</span>
+          <span class="chapter-title">{lieu.chapters.three}</span>
+        </div>
+        <p class="filmstrip-hint" data-reveal="up">Faites glisser pour découvrir la suite →</p>
+        <div class="gallery-filmstrip">
+          {lieu.images.slice(2).map((img, i) => (
+            <figure data-reveal={i % 2 === 0 ? 'up' : 'pop'}>
+              <div class="filmstrip-media">
+                <Pic file={img.file} alt={img.alt} />
+              </div>
+              <figcaption>{img.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </>
+    )}
+
+    <div class="section-heading reviews-heading" data-reveal="up">
+      <span class="eyebrow">Sur place</span>
+      <h2>Ce qu'en disent les visiteurs</h2>
+    </div>
+    <div class="reviews-grid">
+      {lieu.reviews.map((review, i) => (
+        <div class="glow-card" data-reveal={i % 2 === 0 ? 'left' : 'right'}>
+          <span class="glow"></span>
+          <div class="glow-card-content">
+            <div class="review-stars">
+              {Array.from({ length: 5 }).map((_, starIndex) => (
+                <svg viewBox="0 0 24 24" class={starIndex < review.rating ? 'is-filled' : 'is-empty'}>
+                  <path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279L12 19.771l-7.416 3.642 1.48-8.279-6.064-5.828 8.332-1.151z" />
+                </svg>
+              ))}
+            </div>
+            <p class="review-text">"{review.text}"</p>
+            <p class="review-author">{review.author}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+    <p class="reviews-note" data-reveal="up">
+      Impressions de visiteurs illustratives, réunies pour donner le ton d'une visite : elles ne proviennent pas d'un flux Google avis vérifié.
+    </p>
+
+    <div class="section-heading" data-reveal="up">
+      <span class="eyebrow">Continuer la balade</span>
+      <h2>À voir aussi</h2>
+    </div>
+    <div class="lieu-grid lieu-grid-related">
+      {related.map((r) => <LieuCard lieu={r} />)}
+    </div>
+  </section>
+</BaseLayout>

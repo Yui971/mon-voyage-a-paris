@@ -1,0 +1,32 @@
+---
+import Pic from './Pic.astro';
+
+interface Props {
+  lieu: {
+    slug: string;
+    title: string;
+    tagline: string;
+    arrondissement: string;
+    cover: string;
+  };
+}
+
+const { lieu } = Astro.props;
+---
+
+<a
+  class="lieu-card"
+  href={`/lieux/${lieu.slug}/`}
+  data-reveal="up"
+  data-search={`${lieu.title} ${lieu.tagline}`.toLowerCase()}
+  data-arr={lieu.arrondissement}
+>
+  <div class="lieu-card-media" transition:name={`cover-${lieu.slug}`}>
+    <Pic file={lieu.cover} alt={lieu.title} />
+  </div>
+  <div class="lieu-card-body">
+    <span class="arrondissement">{lieu.arrondissement}</span>
+    <h3 transition:name={`title-${lieu.slug}`}>{lieu.title}</h3>
+    <p class="tagline">{lieu.tagline}</p>
+  </div>
+</a>

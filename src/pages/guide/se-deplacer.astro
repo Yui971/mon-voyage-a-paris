@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Pic from '../../components/Pic.astro';
+import { metro, lieux } from '../../data/lieux.js';
+
+const mapPoints = lieux.map((lieu) => ({
+  slug: lieu.slug,
+  title: lieu.title,
+  tagline: lieu.tagline,
+  coords: lieu.coords,
+  cover: lieu.cover,
+}));
+---
+
+<BaseLayout
+  title="Se déplacer à Paris, Guide pratique"
+  description="Le guide pratique pour se déplacer dans Paris : métro, RER et gares parisiennes, avec une carte interactive des lieux et leurs itinéraires."
+>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+  <section class="hero lieu-hero">
+    <div class="hero-media">
+      <Pic file="metro--panneau-art-nouveau" alt="Panneau Métro de style Art nouveau" loading="eager" fetchpriority="high" />
+    </div>
+    <div class="hero-content">
+      <span class="eyebrow">Guide pratique</span>
+      <h1>Se déplacer à Paris</h1>
+      <p>Le métro parisien, ouvert en 1900, reste le moyen le plus simple et le plus rapide de rejoindre les grands sites de la capitale.</p>
+    </div>
+  </section>
+
+  <section class="container">
+    <a class="back-link" href="/"><span class="back-arrow">←</span> Retour à l'accueil</a>
+
+    <div class="chapter-label" data-reveal="up">
+      <span class="chapter-num">I</span>
+      <span class="chapter-title">Le réseau sous la ville</span>
+    </div>
+
+    <div class="lieu-body">
+      <div class="lieu-text">
+        <p class="lieu-intro" data-reveal="up">
+          Avec plus de 300 stations réparties sur seize lignes, le métro parisien permet de rejoindre à pied
+          la plupart des monuments en quelques minutes. Ses entrées historiques, dessinées par Hector Guimard
+          dans le style Art nouveau, sont elles-mêmes de petits repères architecturaux dans la ville.
+        </p>
+        <p data-reveal="up">
+          Le réseau RER complète le métro pour les trajets plus longs, notamment vers La Défense ou Disneyland Paris,
+          tandis que les grandes gares parisiennes, gare du Nord, gare de Lyon, desservent le reste de la France
+          et l'Europe.
+        </p>
+        <p data-reveal="up">
+          Un même ticket ou pass permet généralement de circuler sur le métro, le bus et le RER dans Paris intra-muros :
+          pensez à vérifier les zones couvertes si votre trajet inclut la banlieue ou les aéroports.
+        </p>
+      </div>
+      <aside class="lieu-tip" data-reveal="pop">
+        <span class="eyebrow">Bon à savoir</span>
+        <p>Les rames circulent tôt le matin jusqu'à un peu après minuit, avec un service prolongé les nuits de vendredi et samedi.</p>
+      </aside>
+    </div>
+
+    <div class="chapter-label" data-reveal="up">
+      <span class="chapter-num">II</span>
+      <span class="chapter-title">Repérer les lieux</span>
+    </div>
+    <p data-reveal="up">
+      Repérez chaque lieu sur la carte, cliquez sur un marqueur ou sur son nom pour un aperçu, puis lancez
+      l'itinéraire Google Maps pour vous y rendre depuis votre position.
+    </p>
+
+    <div class="map-layout" data-reveal="up">
+      <div id="lieu-map" class="map-shell" data-points={JSON.stringify(mapPoints)}></div>
+      <div class="map-list" id="lieu-map-list">
+        {mapPoints.map((point) => (
+          <button class="map-list-item" type="button" data-slug={point.slug}>
+            <span class="dot"></span>
+            <span>
+              <strong>{point.title}</strong>
+              <span>{point.tagline}</span>
+            </span>
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <div class="chapter-label" data-reveal="up">
+      <span class="chapter-num">III</span>
+      <span class="chapter-title">Sous les verrières</span>
+    </div>
+    <div class="gallery-mosaic">
+      {metro.map((img) => (
+        <figure data-reveal="pop">
+          <Pic file={img.file} alt={img.alt} />
+          <figcaption>{img.caption}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" is:inline></script>
+  <script src="/scripts/map.js" data-astro-rerun is:inline></script>
+</BaseLayout>

@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Pic from '../components/Pic.astro';
+import LieuCard from '../components/LieuCard.astro';
+import { lieux, ambiance } from '../data/lieux.js';
+
+const arrondissements = [...new Set(lieux.map((lieu) => lieu.arrondissement))];
+---
+
+<BaseLayout
+  title="Paris, Guide de voyage"
+  description="Un guide de voyage pour découvrir les incontournables de Paris : Tour Eiffel, Louvre, Montmartre, Disneyland Paris et bien d'autres lieux."
+>
+  <section class="hero">
+    <div class="hero-media">
+      <Pic file="paris-panorama--vue-aerienne-tour-eiffel" alt="Vue aérienne des toits de Paris avec la Tour Eiffel" loading="eager" fetchpriority="high" />
+    </div>
+    <div class="hero-content">
+      <span class="eyebrow">Guide de voyage</span>
+      <h1>Paris, ville lumière</h1>
+      <p>
+        Des Champs-Élysées à Montmartre, en passant par le Louvre et la Seine,
+        de quoi préparer une balade dans les plus beaux quartiers de la capitale.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-gold" href="#lieux">Découvrir les lieux <span class="btn-arrow">→</span></a>
+        <a class="btn-hover-fill" href="/guide/se-deplacer">
+          <span class="btn-hover-fill-label">Se déplacer</span>
+          <span class="btn-hover-fill-reveal">
+            <span>Se déplacer</span>
+            <svg class="btn-hover-fill-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+            </svg>
+          </span>
+          <span class="btn-hover-fill-dot" aria-hidden="true"></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="lieux" class="container">
+    <div class="section-heading" data-reveal="up">
+      <span class="eyebrow">À découvrir</span>
+      <h2>Les lieux incontournables</h2>
+      <p>Treize lieux emblématiques de Paris et ses environs, à visiter à pied, à vélo ou en métro.</p>
+    </div>
+
+    <div class="lieu-filters" data-reveal="up">
+      <input type="search" id="lieu-search" placeholder="Rechercher un lieu…" aria-label="Rechercher un lieu" />
+      <select id="lieu-arr-filter" aria-label="Filtrer par arrondissement">
+        <option value="">Tous les arrondissements</option>
+        {arrondissements.map((arr) => <option value={arr}>{arr}</option>)}
+      </select>
+    </div>
+
+    <div class="lieu-grid" id="lieu-grid">
+      {lieux.map((lieu) => <LieuCard lieu={lieu} />)}
+    </div>
+    <p class="lieu-empty" id="lieu-empty" hidden>Aucun lieu ne correspond à votre recherche.</p>
+  </section>
+
+  <script src="/scripts/filter.js" is:inline></script>
+
+  <section id="ambiance" class="container">
+    <div class="section-heading" data-reveal="up">
+      <span class="eyebrow">Entre deux visites</span>
+      <h2>L'ambiance parisienne</h2>
+      <p>Au-delà des monuments, Paris se découvre aussi dans ses façades haussmanniennes, ses cafés et ses rues.</p>
+    </div>
+    <div class="ambiance-features">
+      {ambiance.map((img, i) => (
+        <figure class="feature-row" data-reveal={i % 2 === 0 ? 'left' : 'right'}>
+          <div class="feature-media">
+            <span class="glow"></span>
+            <div class="feature-media-inner">
+              <Pic file={img.file} alt={img.alt} />
+            </div>
+          </div>
+          <figcaption class="feature-text">
+            <span class="feature-index">{String(i + 1).padStart(2, '0')}</span>
+            <blockquote>{img.caption}</blockquote>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

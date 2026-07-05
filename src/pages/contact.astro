@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Contact, Paris"
+  description="Contacter l'auteur du guide de voyage Paris : email, téléphone, disponibilité en alternance."
+>
+  <section class="container legal-page contact-page">
+    <a class="back-link" href="/"><span class="back-arrow">←</span> Retour à l'accueil</a>
+
+    <div class="section-heading" data-reveal="up">
+      <span class="eyebrow">Restons en contact</span>
+      <h1>Contact</h1>
+      <p>Une question sur ce guide, une proposition d'alternance ou simplement envie d'échanger : n'hésitez pas à écrire.</p>
+    </div>
+
+    <div class="contact-layout">
+      <div class="contact-cards" data-reveal="left">
+        <a class="contact-card" href="mailto:berdierchrisnael@gmail.com">
+          <span class="eyebrow">Email</span>
+          <strong>berdierchrisnael@gmail.com</strong>
+        </a>
+        <a class="contact-card" href="tel:+33690941449">
+          <span class="eyebrow">Téléphone</span>
+          <strong>06 90 94 14 49</strong>
+        </a>
+        <a class="contact-card" href="https://yui971.github.io/portfolio-berdier-chrisnael/" target="_blank" rel="noopener">
+          <span class="eyebrow">Portfolio</span>
+          <strong>Voir mes projets ↗</strong>
+        </a>
+        <div class="contact-card contact-card-static">
+          <span class="eyebrow">Formation</span>
+          <strong>BUT Métiers du Multimédia et de l'Internet, 1re année</strong>
+        </div>
+        <div class="contact-card contact-card-static">
+          <span class="eyebrow">Disponibilité</span>
+          <strong>Recherche une alternance à partir de septembre</strong>
+        </div>
+      </div>
+
+      <form class="contact-form" data-reveal="right" action="mailto:berdierchrisnael@gmail.com" method="post" enctype="text/plain">
+        <label>
+          Nom
+          <input type="text" name="Nom" required />
+        </label>
+        <label>
+          Email
+          <input type="email" name="Email" required />
+        </label>
+        <label>
+          Message
+          <textarea name="Message" rows="5" required></textarea>
+        </label>
+        <button class="btn btn-gold" type="submit">Envoyer <span class="btn-arrow">→</span></button>
+        <p class="contact-form-note">Ouvre votre messagerie habituelle avec le message pré-rempli.</p>
+      </form>
+    </div>
+  </section>
+</BaseLayout>

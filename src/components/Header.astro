@@ -1,0 +1,51 @@
+---
+const nav = [
+  { href: '/#lieux', label: 'Les lieux' },
+  { href: '/#ambiance', label: 'Ambiance' },
+  { href: '/guide/se-deplacer', label: 'Se déplacer' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="container">
+    <a class="site-logo" href="/">Paris<span>.</span></a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input" />
+    <label for="nav-toggle" class="nav-toggle" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </label>
+    <nav>
+      <ul class="site-nav">
+        {nav.map((item) => {
+          const isActive = item.href.startsWith('/guide') && currentPath.startsWith('/guide');
+          return (
+            <li>
+              <a href={item.href} class={isActive ? 'is-active' : ''}>
+                {item.label}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script is:inline>
+  document.addEventListener('astro:page-load', () => {
+    const toggle = document.getElementById('nav-toggle');
+    if (!toggle) return;
+    toggle.checked = false;
+    document.body.classList.remove('nav-open');
+    toggle.addEventListener('change', () => {
+      document.body.classList.toggle('nav-open', toggle.checked);
+    });
+    document.querySelectorAll('.site-nav a').forEach((a) => {
+      a.addEventListener('click', () => {
+        toggle.checked = false;
+        document.body.classList.remove('nav-open');
+      });
+    });
+  });
+</script>

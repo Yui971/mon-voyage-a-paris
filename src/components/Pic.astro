@@ -1,0 +1,25 @@
+---
+// Affiche une image avec fallback AVIF -> JPG.
+// `file` = nom de fichier sans extension, présent dans public/assets/ en .avif et .jpg
+interface Props {
+  file: string;
+  alt: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  class?: string;
+}
+
+const { file, alt, loading = 'lazy', fetchpriority = 'auto', class: className } = Astro.props;
+---
+
+<picture>
+  <source srcset={`/assets/${file}.avif`} type="image/avif" />
+  <img
+    src={`/assets/${file}.jpg`}
+    alt={alt}
+    loading={loading}
+    fetchpriority={fetchpriority}
+    decoding="async"
+    class={className}
+  />
+</picture>

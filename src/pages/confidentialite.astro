@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Politique de confidentialité, Paris"
+  description="Politique de confidentialité et gestion des cookies du site Paris, guide de voyage non officiel."
+>
+  <section class="container legal-page">
+    <a class="back-link" href="/"><span class="back-arrow">←</span> Retour à l'accueil</a>
+
+    <div class="section-heading" data-reveal="up">
+      <span class="eyebrow">Informations</span>
+      <h1>Politique de confidentialité</h1>
+    </div>
+
+    <div class="legal-body" data-reveal="up">
+      <h2>Aucune collecte de données personnelles</h2>
+      <p>
+        Ce site ne comporte ni compte utilisateur, ni formulaire d'inscription, ni outil
+        d'analyse d'audience (pas de Google Analytics ni équivalent). Aucune donnée personnelle
+        n'est collectée ni stockée sur un serveur lors de la navigation.
+      </p>
+
+      <h2>Stockage local du navigateur</h2>
+      <p>
+        Le bandeau d'information affiché en bas de page utilise le stockage local de votre
+        navigateur (localStorage) pour retenir votre choix (accepté ou refusé) et éviter de vous
+        le redemander à chaque visite. Cette information reste uniquement sur votre appareil et
+        n'est jamais transmise à un serveur.
+      </p>
+
+      <h2>Ressources chargées depuis des services tiers</h2>
+      <p>Pour fonctionner, certaines pages du site chargent des ressources hébergées par des services externes :</p>
+      <ul class="legal-list">
+        <li><strong>Google Fonts</strong> : les polices de caractères (Playfair Display, Inter) sont chargées depuis les serveurs de Google, ce qui transmet votre adresse IP à Google au moment du chargement de la page.</li>
+        <li><strong>OpenStreetMap / Leaflet</strong> : la carte interactive de la page « Se déplacer » charge des fonds de carte depuis les serveurs d'OpenStreetMap, ce qui transmet également votre adresse IP à ce service.</li>
+        <li><strong>Google Maps</strong> : les boutons « Itinéraire » ouvrent un nouvel onglet vers Google Maps, régi par sa propre politique de confidentialité.</li>
+      </ul>
+      <p>
+        Ces services tiers peuvent, de leur côté, déposer des cookies techniques propres à leur
+        fonctionnement. Ce site n'a aucun contrôle sur ces cookies.
+      </p>
+
+      <h2>Vos droits</h2>
+      <p>
+        Aucune donnée personnelle n'étant collectée ou conservée par ce site, il n'y a pas de
+        droit d'accès, de rectification ou de suppression à exercer auprès de son éditeur. Pour
+        toute question, vous pouvez néanmoins écrire à
+        <a href="mailto:berdierchrisnael@gmail.com">berdierchrisnael@gmail.com</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
