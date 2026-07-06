@@ -314,25 +314,11 @@ p {
 }
 
 /* Header */
-.site-nav-root {
-  display: grid;
-}
-
-.site-nav-root > header,
-.site-nav-root > nav {
-  grid-area: 1 / 1;
-}
-
-.site-nav-root > nav {
-  pointer-events: none;
-}
-
 .site-header {
   position: sticky;
   top: 0;
   z-index: 40;
-  background: rgba(250, 246, 239, 0.92);
-  backdrop-filter: blur(6px);
+  background: var(--color-bg);
   border-bottom: 1px solid var(--color-line);
 }
 
@@ -344,31 +330,34 @@ p {
   padding-bottom: 18px;
 }
 
-.nav-inner {
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
-
-.nav-inner .site-nav {
-  pointer-events: auto;
-}
-
-@media (min-width: 561px) {
-  .nav-inner {
-    justify-content: flex-end;
-  }
-}
-
 .site-logo {
   display: inline-flex;
   align-items: center;
+  gap: 12px;
+  text-decoration: none;
 }
 
 .site-logo img {
   display: block;
   height: 57px;
   width: auto;
+}
+
+.site-logo-title-header {
+  display: none;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.15;
+  color: var(--color-navy);
+  letter-spacing: 0.01em;
+}
+
+@media (min-width: 720px) {
+  .site-logo-title-header {
+    display: block;
+  }
 }
 
 .site-nav {
@@ -1453,6 +1442,7 @@ section {
   gap: 5px;
   width: 42px;
   height: 42px;
+  margin-left: auto;
   border-radius: 999px;
   cursor: pointer;
   position: relative;
@@ -1473,15 +1463,15 @@ section {
   transition: transform 0.4s var(--ease-theatre), opacity 0.25s ease;
 }
 
-.nav-toggle-input:checked ~ .nav-toggle span:nth-child(1) {
+.nav-toggle-input:checked ~ header .nav-toggle span:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
 
-.nav-toggle-input:checked ~ .nav-toggle span:nth-child(2) {
+.nav-toggle-input:checked ~ header .nav-toggle span:nth-child(2) {
   opacity: 0;
 }
 
-.nav-toggle-input:checked ~ .nav-toggle span:nth-child(3) {
+.nav-toggle-input:checked ~ header .nav-toggle span:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
 }
 
@@ -1509,7 +1499,7 @@ body.nav-open {
     transition: opacity 0.45s var(--ease-theatre), transform 0.45s var(--ease-theatre), visibility 0.45s;
   }
 
-  .nav-toggle-input:checked ~ nav .site-nav {
+  .nav-toggle-input:checked ~ header nav .site-nav {
     opacity: 1;
     visibility: visible;
     transform: none;

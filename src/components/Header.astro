@@ -10,35 +10,32 @@ const nav = [
 const currentPath = Astro.url.pathname;
 ---
 
-<div class="site-nav-root">
-  <input type="checkbox" id="nav-toggle" class="nav-toggle-input" />
-  <header class="site-header">
-    <div class="container">
-      <a class="site-logo" href={base}>
-        <img src={`${base}logo/logo-mark.png`} alt="Mon Voyage à Paris" width="56" height="57" />
-      </a>
-      <label for="nav-toggle" class="nav-toggle" aria-label="Ouvrir le menu">
-        <span></span><span></span><span></span>
-      </label>
-    </div>
-  </header>
-  <nav>
-    <div class="container nav-inner">
-    <ul class="site-nav">
-      {nav.map((item) => {
-        const isActive = item.href.includes('/guide/') && currentPath.includes('/guide/');
-        return (
-          <li>
-            <a href={item.href} class={isActive ? 'is-active' : ''}>
-              {item.label}
-            </a>
-          </li>
-        );
-      })}
-    </ul>
-    </div>
-  </nav>
-</div>
+<input type="checkbox" id="nav-toggle" class="nav-toggle-input" />
+<header class="site-header">
+  <div class="container">
+    <a class="site-logo" href={base}>
+      <img src={`${base}logo/logo-mark.png`} alt="Mon Voyage à Paris" width="56" height="57" />
+      <span class="site-logo-title-header">Mon Voyage<br />à Paris</span>
+    </a>
+    <label for="nav-toggle" class="nav-toggle" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </label>
+    <nav>
+      <ul class="site-nav">
+        {nav.map((item) => {
+          const isActive = item.href.includes('/guide/') && currentPath.includes('/guide/');
+          return (
+            <li>
+              <a href={item.href} class={isActive ? 'is-active' : ''}>
+                {item.label}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  </div>
+</header>
 
 <script is:inline>
   document.addEventListener('astro:page-load', () => {
