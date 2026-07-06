@@ -281,6 +281,37 @@ p {
   transform: scale(0.97);
 }
 
+.btn-hover-fill-train {
+  position: absolute;
+  left: -30px;
+  bottom: 4px;
+  width: 19px;
+  height: 11px;
+  z-index: 0;
+  background-color: var(--color-bg);
+  -webkit-mask-image: var(--train-icon);
+  mask-image: var(--train-icon);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.btn-hover-fill:hover .btn-hover-fill-train {
+  animation: btn-train-travel 1.4s var(--ease-theatre);
+}
+
+@keyframes btn-train-travel {
+  0% { left: -30px; opacity: 0; }
+  12% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { left: 180px; opacity: 0; }
+}
+
 /* Header */
 .site-nav-root {
   position: relative;
