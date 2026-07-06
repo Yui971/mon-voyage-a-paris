@@ -283,10 +283,11 @@ p {
 
 .btn-hover-fill-train {
   position: absolute;
-  left: -30px;
-  bottom: 4px;
-  width: 19px;
-  height: 11px;
+  left: -150px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 140px;
+  height: 40px;
   z-index: 0;
   background-color: var(--color-bg);
   -webkit-mask-image: var(--train-icon);
@@ -302,11 +303,11 @@ p {
 }
 
 .btn-hover-fill:hover .btn-hover-fill-train {
-  animation: btn-train-travel 1.4s var(--ease-theatre);
+  animation: btn-train-travel 1.6s var(--ease-theatre);
 }
 
 @keyframes btn-train-travel {
-  0% { left: -30px; opacity: 0; }
+  0% { left: -150px; opacity: 0; }
   12% { opacity: 1; }
   85% { opacity: 1; }
   100% { left: 180px; opacity: 0; }
