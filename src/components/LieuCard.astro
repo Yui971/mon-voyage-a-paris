@@ -13,11 +13,13 @@ interface Props {
 
 const { lieu } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const locale = Astro.currentLocale ?? 'fr';
+const localePrefix = locale === 'fr' ? '' : 'en/';
 ---
 
 <a
   class="lieu-card"
-  href={`${base}lieux/${lieu.slug}/`}
+  href={`${base}${localePrefix}lieux/${lieu.slug}/`}
   data-reveal="up"
   data-search={`${lieu.title} ${lieu.tagline}`.toLowerCase()}
   data-arr={lieu.arrondissement}

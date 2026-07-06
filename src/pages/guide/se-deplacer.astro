@@ -71,7 +71,7 @@ const base = import.meta.env.BASE_URL;
     </p>
 
     <div class="map-layout" data-reveal="up">
-      <div id="lieu-map" class="map-shell" data-points={JSON.stringify(mapPoints)} data-base={base}></div>
+      <div id="lieu-map" class="map-shell" data-points={JSON.stringify(mapPoints)} data-base={base} data-itineraire-label="Itinéraire"></div>
       <div class="map-list" id="lieu-map-list">
         {mapPoints.map((point) => (
           <button class="map-list-item" type="button" data-slug={point.slug}>

@@ -1,49 +1,55 @@
 ---
+import { useTranslations } from '../i18n/ui.js';
+
 const year = new Date().getFullYear();
 const base = import.meta.env.BASE_URL;
+const locale = Astro.currentLocale ?? 'fr';
+const t = useTranslations(locale);
+const localePrefix = locale === 'fr' ? '' : 'en/';
+const homeHref = `${base}${localePrefix}`;
 ---
 
 <footer class="site-footer">
   <div class="container footer-grid">
     <div class="footer-brand">
-      <a class="site-logo" href={base}>
+      <a class="site-logo" href={homeHref}>
         <img src={`${base}logo/logo-mark-light.png`} alt="Mon Voyage à Paris" width="72" height="73" />
         <span class="site-logo-title">Mon Voyage<br />à Paris</span>
       </a>
-      <p>Un guide de voyage non officiel pour préparer une balade dans les plus beaux quartiers de la capitale.</p>
+      <p>{t.footer.brandText}</p>
     </div>
 
     <div class="footer-col">
-      <span class="footer-heading">Explorer</span>
+      <span class="footer-heading">{t.footer.exploreHeading}</span>
       <ul>
-        <li><a href={`${base}#lieux`}>Les lieux</a></li>
-        <li><a href={`${base}#ambiance`}>Ambiance</a></li>
-        <li><a href={`${base}guide/se-deplacer`}>Se déplacer</a></li>
+        <li><a href={`${homeHref}#lieux`}>{t.nav.lieux}</a></li>
+        <li><a href={`${homeHref}#ambiance`}>{t.nav.ambiance}</a></li>
+        <li><a href={`${base}${localePrefix}guide/se-deplacer`}>{t.nav.seDeplacer}</a></li>
       </ul>
     </div>
 
     <div class="footer-col">
-      <span class="footer-heading">Informations</span>
+      <span class="footer-heading">{t.footer.infoHeading}</span>
       <ul>
-        <li><a href={`${base}mentions-legales`}>Mentions légales</a></li>
-        <li><a href={`${base}confidentialite`}>Politique de confidentialité</a></li>
-        <li><a href={`${base}contact`}>Contact</a></li>
+        <li><a href={`${base}${localePrefix}mentions-legales`}>{t.footer.mentionsLegales}</a></li>
+        <li><a href={`${base}${localePrefix}confidentialite`}>{t.footer.confidentialite}</a></li>
+        <li><a href={`${base}${localePrefix}contact`}>{t.footer.contact}</a></li>
       </ul>
     </div>
 
     <div class="footer-col footer-contact">
-      <span class="footer-heading">Contact</span>
+      <span class="footer-heading">{t.footer.contactHeading}</span>
       <ul>
         <li><a href="mailto:berdierchrisnael@gmail.com">berdierchrisnael@gmail.com</a></li>
         <li><a href="tel:+33690941449">06 90 94 14 49</a></li>
-        <li><a href="https://yui971.github.io/portfolio-berdier-chrisnael/" target="_blank" rel="noopener">Portfolio ↗</a></li>
+        <li><a href="https://yui971.github.io/portfolio-berdier-chrisnael/" target="_blank" rel="noopener">{t.footer.portfolio}</a></li>
       </ul>
-      <p class="footer-availability">Étudiant BUT MMI 1re année, disponible en alternance dès septembre.</p>
+      <p class="footer-availability">{t.footer.availability}</p>
     </div>
   </div>
 
   <div class="container footer-bottom">
-    <p>© {year} Paris, guide de voyage non officiel.</p>
-    <p>Photographies : Unsplash.</p>
+    <p>© {year} {t.footer.copyright}</p>
+    <p>{t.footer.photoCredit}</p>
   </div>
 </footer>

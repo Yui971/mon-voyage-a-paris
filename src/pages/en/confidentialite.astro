@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n/ui.js';
+
+const base = import.meta.env.BASE_URL;
+const t = useTranslations('en');
+---
+
+<BaseLayout
+  title="Privacy Policy, Paris"
+  description="Privacy and cookie policy for the Paris site, an unofficial travel guide."
+>
+  <section class="container legal-page">
+    <a class="back-link" href={`${base}en/`}><span class="back-arrow">←</span> {t.legal.backHome}</a>
+
+    <div class="section-heading" data-reveal="up">
+      <span class="eyebrow">Information</span>
+      <h1>Privacy Policy</h1>
+    </div>
+
+    <div class="legal-body" data-reveal="up">
+      <h2>No personal data collection</h2>
+      <p>
+        This site has no user accounts, no sign-up forms and no audience-measurement tool
+        (no Google Analytics or equivalent). No personal data is collected or stored on a
+        server while browsing.
+      </p>
+
+      <h2>Local browser storage</h2>
+      <p>
+        The notice banner shown at the bottom of the page uses your browser's local storage
+        (localStorage) to remember your choice (accepted or declined) and avoid asking again
+        on every visit. This information stays only on your device and is never sent to a
+        server.
+      </p>
+
+      <h2>Resources loaded from third-party services</h2>
+      <p>To work, some pages on this site load resources hosted by external services:</p>
+      <ul class="legal-list">
+        <li><strong>Google Fonts</strong>: the typefaces (Playfair Display, Inter) are loaded from Google's servers, which transmits your IP address to Google when the page loads.</li>
+        <li><strong>OpenStreetMap / Leaflet</strong>: the interactive map on the "Getting around" page loads map tiles from OpenStreetMap's servers, which also transmits your IP address to that service.</li>
+        <li><strong>Google Maps</strong>: the "Directions" buttons open a new tab to Google Maps, governed by its own privacy policy.</li>
+      </ul>
+      <p>
+        These third-party services may, on their end, set technical cookies of their own.
+        This site has no control over those cookies.
+      </p>
+
+      <h2>Your rights</h2>
+      <p>
+        Since no personal data is collected or retained by this site, there is no right of
+        access, rectification or deletion to exercise with its publisher. For any question,
+        you can still write to
+        <a href="mailto:berdierchrisnael@gmail.com">berdierchrisnael@gmail.com</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

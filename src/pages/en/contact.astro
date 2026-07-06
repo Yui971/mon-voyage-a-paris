@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n/ui.js';
+
+const base = import.meta.env.BASE_URL;
+const t = useTranslations('en');
+---
+
+<BaseLayout
+  title={t.contact.title}
+  description={t.contact.description}
+>
+  <section class="container legal-page contact-page">
+    <a class="back-link" href={`${base}en/`}><span class="back-arrow">←</span> {t.contact.backHome}</a>
+
+    <div class="section-heading" data-reveal="up">
+      <span class="eyebrow">{t.contact.eyebrow}</span>
+      <h1>{t.contact.heading}</h1>
+      <p>{t.contact.intro}</p>
+    </div>
+
+    <div class="contact-layout">
+      <div class="contact-cards" data-reveal="left">
+        <a class="contact-card" href="mailto:berdierchrisnael@gmail.com">
+          <span class="eyebrow">{t.contact.email}</span>
+          <strong>berdierchrisnael@gmail.com</strong>
+        </a>
+        <a class="contact-card" href="tel:+33690941449">
+          <span class="eyebrow">{t.contact.phone}</span>
+          <strong>06 90 94 14 49</strong>
+        </a>
+        <a class="contact-card" href="https://yui971.github.io/portfolio-berdier-chrisnael/" target="_blank" rel="noopener">
+          <span class="eyebrow">{t.contact.portfolio}</span>
+          <strong>{t.contact.portfolioLink}</strong>
+        </a>
+        <div class="contact-card contact-card-static">
+          <span class="eyebrow">{t.contact.formation}</span>
+          <strong>{t.contact.formationText}</strong>
+        </div>
+        <div class="contact-card contact-card-static">
+          <span class="eyebrow">{t.contact.availability}</span>
+          <strong>{t.contact.availabilityText}</strong>
+        </div>
+      </div>
+
+      <form class="contact-form" data-reveal="right" action="mailto:berdierchrisnael@gmail.com" method="post" enctype="text/plain">
+        <label>
+          {t.contact.formName}
+          <input type="text" name="Name" required />
+        </label>
+        <label>
+          {t.contact.formEmail}
+          <input type="email" name="Email" required />
+        </label>
+        <label>
+          {t.contact.formMessage}
+          <textarea name="Message" rows="5" required></textarea>
+        </label>
+        <button class="btn btn-gold" type="submit">{t.contact.formSend} <span class="btn-arrow">→</span></button>
+        <p class="contact-form-note">{t.contact.formNote}</p>
+      </form>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,19 +1,33 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { useTranslations } from '../i18n/ui.js';
+
 const base = import.meta.env.BASE_URL;
+const locale = Astro.currentLocale ?? 'fr';
+const t = useTranslations(locale);
+const localePrefix = locale === 'fr' ? '' : 'en/';
+const homeHref = `${base}${localePrefix}`;
 
 const nav = [
-  { href: `${base}#lieux`, label: 'Les lieux' },
-  { href: `${base}#ambiance`, label: 'Ambiance' },
-  { href: `${base}guide/se-deplacer`, label: 'Se déplacer' },
+  { href: `${homeHref}#lieux`, label: t.nav.lieux },
+  { href: `${homeHref}#ambiance`, label: t.nav.ambiance },
+  { href: `${base}${localePrefix}guide/se-deplacer`, label: t.nav.seDeplacer },
 ];
 
 const currentPath = Astro.url.pathname;
+
+const otherLocale = locale === 'fr' ? 'en' : 'fr';
+const pathNoBase = currentPath.startsWith(base) ? currentPath.slice(base.length) : currentPath;
+const neutralPath = pathNoBase.replace(/^en\/?/, '');
+const langSwitchHref = getRelativeLocaleUrl(otherLocale, neutralPath);
+const langSwitchLabel = otherLocale === 'en' ? 'EN' : 'FR';
+const langSwitchFull = otherLocale === 'en' ? 'English' : 'Français';
 ---
 
 <input type="checkbox" id="nav-toggle" class="nav-toggle-input" />
 <header class="site-header">
   <div class="container">
-    <a class="site-logo" href={base}>
+    <a class="site-logo" href={homeHref}>
       <img src={`${base}logo/logo-mark.png`} alt="Mon Voyage à Paris" width="56" height="57" />
       <span class="site-logo-title-header">Mon Voyage<br />à Paris</span>
     </a>
@@ -32,6 +46,16 @@ const currentPath = Astro.url.pathname;
             </li>
           );
         })}
+        <li>
+          <a href={langSwitchHref} class="lang-switch" aria-label={langSwitchFull}>
+            <svg class="lang-switch-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M2 12h20" />
+              <path d="M12 2a15 15 0 0 1 0 20a15 15 0 0 1 0-20" />
+            </svg>
+            {langSwitchLabel}
+          </a>
+        </li>
       </ul>
     </nav>
   </div>

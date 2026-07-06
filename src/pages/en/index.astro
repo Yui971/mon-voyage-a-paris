@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Pic from '../../components/Pic.astro';
+import LieuCard from '../../components/LieuCard.astro';
+import { lieuxEn as lieux, ambianceEn as ambiance } from '../../data/lieux.en.js';
+import { useTranslations } from '../../i18n/ui.js';
+
+const arrondissements = [...new Set(lieux.map((lieu) => lieu.arrondissement))];
+const base = import.meta.env.BASE_URL;
+const t = useTranslations('en');
+---
+
+<BaseLayout title={t.home.title} description={t.home.description}>
+  <section class="hero">
+    <div class="hero-media">
+      <Pic file="paris-panorama--vue-aerienne-tour-eiffel" alt="Aerial view of the Paris rooftops with the Eiffel Tower" loading="eager" fetchpriority="high" />
+    </div>
+    <div class="hero-content">
+      <span class="eyebrow">{t.home.heroEyebrow}</span>
+      <h1>{t.home.heroTitle}</h1>
+      <p>{t.home.heroText}</p>
+      <div class="hero-actions">
+        <a class="btn btn-gold" href="#lieux">{t.home.ctaLieux} <span class="btn-arrow">→</span></a>
+        <a class="btn-hover-fill" href={`${base}en/guide/se-deplacer`}>
+          <span class="btn-hover-fill-label">{t.home.ctaDeplacer}</span>
+          <span class="btn-hover-fill-reveal">
+            <span>{t.home.ctaDeplacer}</span>
+            <svg class="btn-hover-fill-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+            </svg>
+          </span>
+          <span class="btn-hover-fill-dot" aria-hidden="true"></span>
+          <span class="btn-hover-fill-train" aria-hidden="true" style={`--train-icon: url(${base}logo/train.png);`}></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="lieux" class="container">
+    <div class="section-heading" data-reveal="up">
+      <span class="eyebrow">{t.home.lieuxEyebrow}</span>
+      <h2>{t.home.lieuxTitle}</h2>
+      <p>{t.home.lieuxText}</p>
+    </div>
+
+    <div class="lieu-filters" data-reveal="up">
+      <input type="search" id="lieu-search" placeholder={t.home.searchPlaceholder} aria-label={t.home.searchPlaceholder} />
+      <select id="lieu-arr-filter" aria-label="Filter by arrondissement">
+        <option value="">{t.home.allArrondissements}</option>
+        {arrondissements.map((arr) => <option value={arr}>{arr}</option>)}
+      </select>
+    </div>
+
+    <div class="lieu-grid" id="lieu-grid">
+      {lieux.map((lieu) => <LieuCard lieu={lieu} />)}
+    </div>
+    <p class="lieu-empty" id="lieu-empty" hidden>{t.home.emptyResults}</p>
+  </section>
+
+  <script src={`${base}scripts/filter.js`} is:inline></script>
+
+  <section id="ambiance" class="container">
+    <div class="section-heading" data-reveal="up">
+      <span class="eyebrow">{t.home.ambianceEyebrow}</span>
+      <h2>{t.home.ambianceTitle}</h2>
+      <p>{t.home.ambianceText}</p>
+    </div>
+    <div class="ambiance-features">
+      {ambiance.map((img, i) => (
+        <figure class="feature-row" data-reveal={i % 2 === 0 ? 'left' : 'right'}>
+          <div class="feature-media">
+            <span class="glow"></span>
+            <div class="feature-media-inner">
+              <Pic file={img.file} alt={img.alt} />
+            </div>
+          </div>
+          <figcaption class="feature-text">
+            <span class="feature-index">{String(i + 1).padStart(2, '0')}</span>
+            <blockquote>{img.caption}</blockquote>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

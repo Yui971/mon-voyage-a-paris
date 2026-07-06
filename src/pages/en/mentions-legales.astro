@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { useTranslations } from '../../i18n/ui.js';
+
+const base = import.meta.env.BASE_URL;
+const t = useTranslations('en');
+---
+
+<BaseLayout
+  title="Legal Notice, Paris"
+  description="Legal notice for the Paris site, an unofficial travel guide."
+>
+  <section class="container legal-page">
+    <a class="back-link" href={`${base}en/`}><span class="back-arrow">←</span> {t.legal.backHome}</a>
+
+    <div class="section-heading" data-reveal="up">
+      <span class="eyebrow">Information</span>
+      <h1>Legal Notice</h1>
+    </div>
+
+    <div class="legal-body" data-reveal="up">
+      <h2>Site publisher</h2>
+      <p>
+        This site is a personal and educational project, created as part of a BUT
+        (Bachelor's degree) in Multimedia and Internet Studies (MMI). It presents an
+        unofficial travel guide to Paris and pursues no commercial purpose.
+      </p>
+      <p>
+        In accordance with Article 6-III of French law n° 2004-575 of 21 June 2004 on
+        confidence in the digital economy, the publisher, a private individual acting in a
+        non-professional capacity, is:
+      </p>
+      <ul class="legal-contact-list">
+        <li>Publication director: Chrisnaël Berdier</li>
+        <li>Email: <a href="mailto:berdierchrisnael@gmail.com">berdierchrisnael@gmail.com</a></li>
+        <li>Phone: <a href="tel:+33690941449">06 90 94 14 49</a></li>
+      </ul>
+
+      <h2>Hosting</h2>
+      <p>
+        The site is deployed from a GitHub repository, via GitHub Pages. GitHub, Inc. is
+        located at 88 Colin P Kelly Jr St, San Francisco, CA 94107, United States.
+      </p>
+
+      <h2>Intellectual property</h2>
+      <p>
+        The site's structure, text, illustrations and graphic elements are the property of
+        the publisher, unless otherwise stated. The photographs used come from Unsplash and
+        are covered by the Unsplash licence, which permits free use including for educational
+        purposes. Any reproduction of the site's text content without prior authorisation is
+        prohibited.
+      </p>
+
+      <h2>Liability</h2>
+      <p>
+        The practical information presented (opening hours, prices, access) is given for
+        guidance only and may change. It is recommended to check this information with
+        official sources before planning a visit. The publisher cannot be held liable for
+        the consequences of using this information.
+      </p>
+
+      <h2>External links</h2>
+      <p>
+        This site includes links to third-party services (Google Maps, OpenStreetMap). The
+        publisher has no control over the content of these sites and disclaims any liability
+        regarding their content.
+      </p>
+
+      <h2>Governing law</h2>
+      <p>This legal notice is governed by French law.</p>
+    </div>
+  </section>
+</BaseLayout>
