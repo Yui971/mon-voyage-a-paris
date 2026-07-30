@@ -103,11 +103,10 @@ const t = useTranslations('en');
           <span class="chapter-num">III</span>
           <span class="chapter-title">{lieu.chapters.three}</span>
         </div>
-        <p class="filmstrip-hint" data-reveal="up">{t.lieu.filmstripHint}</p>
-        <div class="gallery-filmstrip">
-          {lieu.images.slice(2).map((img, i) => (
-            <figure data-reveal={i % 2 === 0 ? 'up' : 'pop'}>
-              <div class="filmstrip-media">
+        <div class="gallery-reveal">
+          {lieu.images.slice(2).map((img) => (
+            <figure data-reveal="blur">
+              <div class="reveal-media">
                 <Pic file={img.file} alt={img.alt} />
               </div>
               <figcaption>{img.caption}</figcaption>
