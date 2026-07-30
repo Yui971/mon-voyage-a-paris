@@ -5,7 +5,6 @@ import LieuCard from '../../components/LieuCard.astro';
 import { lieuxEn as lieux, ambianceEn as ambiance } from '../../data/lieux.en.js';
 import { useTranslations } from '../../i18n/ui.js';
 
-const arrondissements = [...new Set(lieux.map((lieu) => lieu.arrondissement))];
 const base = import.meta.env.BASE_URL;
 const t = useTranslations('en');
 ---
@@ -43,14 +42,6 @@ const t = useTranslations('en');
       <p>{t.home.lieuxText}</p>
     </div>
 
-    <div class="lieu-filters" data-reveal="up">
-      <input type="search" id="lieu-search" placeholder={t.home.searchPlaceholder} aria-label={t.home.searchPlaceholder} />
-      <select id="lieu-arr-filter" aria-label="Filter by arrondissement">
-        <option value="">{t.home.allArrondissements}</option>
-        {arrondissements.map((arr) => <option value={arr}>{arr}</option>)}
-      </select>
-    </div>
-
     <div class="lieu-carousel" id="lieu-carousel">
       <div class="lieu-carousel-track" id="lieu-carousel-track">
         {lieux.map((lieu, i) => (
@@ -61,10 +52,8 @@ const t = useTranslations('en');
       </div>
     </div>
     <p class="lieu-carousel-hint">Drag to spin the gallery →</p>
-    <p class="lieu-empty" id="lieu-empty" hidden>{t.home.emptyResults}</p>
   </section>
 
-  <script src={`${base}scripts/filter.js`} is:inline></script>
   <script src={`${base}scripts/carousel.js`} data-astro-rerun is:inline></script>
 
   <section id="ambiance" class="container">

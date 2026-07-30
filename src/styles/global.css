@@ -650,52 +650,15 @@ section {
 }
 
 [data-reveal='blur'] {
-  filter: blur(20px);
-  transform: scale(1.04);
-  transition: opacity 0.9s var(--ease-theatre), transform 0.9s var(--ease-theatre), filter 1.1s var(--ease-theatre);
+  filter: blur(24px);
+  transform: scale(1.06);
+  transition: opacity 1.6s var(--ease-theatre), transform 2s var(--ease-theatre), filter 2.2s var(--ease-theatre);
 }
 
 [data-reveal].is-visible {
   opacity: 1;
   transform: none;
   filter: blur(0);
-}
-
-/* Filtres de recherche */
-.lieu-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-bottom: 32px;
-}
-
-.lieu-filters input,
-.lieu-filters select {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  padding: 0.75em 1.2em;
-  border-radius: 999px;
-  border: 1.5px solid var(--color-line);
-  background: var(--color-bg-alt);
-  color: var(--color-ink);
-}
-
-.lieu-filters input {
-  flex: 1 1 220px;
-}
-
-.lieu-filters input:focus,
-.lieu-filters select:focus {
-  outline: 2px solid var(--color-rose-soft);
-  outline-offset: 2px;
-  border-color: var(--color-rose);
-}
-
-.lieu-empty {
-  text-align: center;
-  padding: 48px 0;
-  color: var(--color-ink-soft);
-  font-style: italic;
 }
 
 /* Galerie 3D des lieux (carrousel rotatif) */
@@ -731,9 +694,10 @@ section {
   transition: opacity 0.2s linear;
 }
 
-.lieu-carousel-slot.is-filtered-out {
-  opacity: 0 !important;
-  pointer-events: none;
+.lieu-carousel-slot .lieu-card,
+.lieu-carousel-slot img {
+  -webkit-user-drag: none;
+  user-drag: none;
 }
 
 .lieu-carousel-slot .lieu-card {

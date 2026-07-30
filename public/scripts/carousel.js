@@ -10,6 +10,14 @@
     var slots = Array.from(track.querySelectorAll('.lieu-carousel-slot'));
     if (!slots.length) return;
 
+    // Native image/link drag would otherwise hijack the drag-to-rotate
+    // gesture; disabling it here (rather than via preventDefault on
+    // pointerdown, which also silently kills the synthesized click)
+    // keeps normal link clicks working.
+    track.querySelectorAll('img').forEach(function (img) {
+      img.draggable = false;
+    });
+
     var rotation = 0;
     var dragging = false;
     var dragStartX = 0;
@@ -53,13 +61,13 @@
 
     function onPointerDown(e) {
       if (mq.matches) return;
+      if (e.button !== undefined && e.button !== 0) return;
       dragging = true;
       dragDistance = 0;
       dragStartX = e.clientX;
       dragStartRotation = rotation;
       lastInteraction = performance.now();
       viewport.classList.add('is-dragging');
-      viewport.setPointerCapture && e.pointerId != null && viewport.setPointerCapture(e.pointerId);
     }
 
     function onPointerMove(e) {
@@ -79,7 +87,7 @@
     }
 
     function onCardClick(e) {
-      if (dragDistance > 6) {
+      if (dragDistance > 10) {
         e.preventDefault();
       }
     }
@@ -117,22 +125,5 @@
     };
   }
 
-  function applyFilterVisibility() {
-    var track = document.getElementById('lieu-carousel-track');
-    if (!track) return;
-    var slots = Array.from(track.querySelectorAll('.lieu-carousel-slot'));
-    slots.forEach(function (slot) {
-      var card = slot.querySelector('.lieu-card');
-      slot.classList.toggle('is-filtered-out', !!(card && card.hidden));
-    });
-  }
-
-  document.addEventListener('astro:page-load', function () {
-    initCarousel();
-    var search = document.getElementById('lieu-search');
-    var arrFilter = document.getElementById('lieu-arr-filter');
-    if (search) search.addEventListener('input', applyFilterVisibility);
-    if (arrFilter) arrFilter.addEventListener('change', applyFilterVisibility);
-    applyFilterVisibility();
-  });
+  document.addEventListener('astro:page-load', initCarousel);
 })();
