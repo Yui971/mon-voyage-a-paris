@@ -691,6 +691,101 @@ section {
   font-style: italic;
 }
 
+/* Galerie 3D des lieux (carrousel rotatif) */
+.lieu-carousel {
+  position: relative;
+  height: 460px;
+  perspective: 1900px;
+  cursor: grab;
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.lieu-carousel.is-dragging {
+  cursor: grabbing;
+}
+
+.lieu-carousel-track {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.lieu-carousel-slot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 230px;
+  height: 320px;
+  margin: -160px 0 0 -115px;
+  transform: rotateY(var(--angle, 0deg)) translateZ(var(--carousel-radius, 480px));
+  transition: opacity 0.2s linear;
+}
+
+.lieu-carousel-slot.is-filtered-out {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+.lieu-carousel-slot .lieu-card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 48px rgba(18, 32, 63, 0.28);
+}
+
+.lieu-carousel-slot .lieu-card-media {
+  flex: 1;
+  aspect-ratio: auto;
+}
+
+.lieu-carousel-hint {
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--color-ink-soft);
+  font-style: italic;
+  margin-top: 18px;
+}
+
+@media (max-width: 860px) {
+  .lieu-carousel {
+    height: auto;
+    perspective: none;
+    cursor: auto;
+    display: flex;
+    gap: 18px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .lieu-carousel-track {
+    position: static;
+    display: flex;
+    gap: 18px;
+    transform: none !important;
+  }
+
+  .lieu-carousel-slot {
+    position: static;
+    flex: 0 0 220px;
+    width: 220px;
+    height: 300px;
+    margin: 0;
+    transform: none !important;
+    opacity: 1 !important;
+    scroll-snap-align: start;
+  }
+
+  .lieu-carousel-hint {
+    display: none;
+  }
+}
+
 /* Grid of lieu cards */
 .lieu-grid {
   display: grid;

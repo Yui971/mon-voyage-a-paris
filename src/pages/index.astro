@@ -55,13 +55,21 @@ const base = import.meta.env.BASE_URL;
       </select>
     </div>
 
-    <div class="lieu-grid" id="lieu-grid">
-      {lieux.map((lieu) => <LieuCard lieu={lieu} />)}
+    <div class="lieu-carousel" id="lieu-carousel">
+      <div class="lieu-carousel-track" id="lieu-carousel-track">
+        {lieux.map((lieu, i) => (
+          <div class="lieu-carousel-slot" style={`--angle: ${Math.round((i * 360) / lieux.length)}deg`} data-angle={Math.round((i * 360) / lieux.length)}>
+            <LieuCard lieu={lieu} reveal={false} />
+          </div>
+        ))}
+      </div>
     </div>
+    <p class="lieu-carousel-hint">Faites glisser pour faire tourner la galerie →</p>
     <p class="lieu-empty" id="lieu-empty" hidden>Aucun lieu ne correspond à votre recherche.</p>
   </section>
 
   <script src={`${base}scripts/filter.js`} is:inline></script>
+  <script src={`${base}scripts/carousel.js`} data-astro-rerun is:inline></script>
 
   <section id="ambiance" class="container">
     <div class="section-heading" data-reveal="up">

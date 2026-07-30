@@ -1,5 +1,5 @@
 document.addEventListener('astro:page-load', () => {
-  const grid = document.getElementById('lieu-grid');
+  const grid = document.getElementById('lieu-carousel-track') || document.getElementById('lieu-grid');
   const search = document.getElementById('lieu-search');
   const arrFilter = document.getElementById('lieu-arr-filter');
   const empty = document.getElementById('lieu-empty');
