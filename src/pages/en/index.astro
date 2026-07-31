@@ -52,6 +52,9 @@ const t = useTranslations('en');
       </div>
     </div>
     <p class="lieu-carousel-hint">Drag to spin the gallery →</p>
+    <div class="lieu-carousel-progress" id="lieu-carousel-progress" aria-hidden="true">
+      {lieux.map((_, i) => <span data-index={i}></span>)}
+    </div>
   </section>
 
   <script src={`${base}scripts/carousel.js`} data-astro-rerun is:inline></script>

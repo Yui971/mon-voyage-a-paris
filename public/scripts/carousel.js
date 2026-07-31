@@ -115,6 +115,32 @@
     render();
     rafId = requestAnimationFrame(tick);
 
+    // Mobile fallback is a plain horizontal scroller; track which card is
+    // centered so the dot progress indicator underneath can follow along.
+    var progress = document.getElementById('lieu-carousel-progress');
+    var dots = progress ? Array.from(progress.querySelectorAll('span')) : [];
+    var progressObserver = null;
+
+    if (dots.length === slots.length) {
+      progressObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            var idx = slots.indexOf(entry.target);
+            if (idx === -1) return;
+            dots.forEach(function (dot, i) {
+              dot.classList.toggle('is-active', i === idx);
+            });
+          });
+        },
+        { root: viewport, threshold: 0.6 }
+      );
+      slots.forEach(function (slot) {
+        progressObserver.observe(slot);
+      });
+      dots[0].classList.add('is-active');
+    }
+
     viewport._carouselCleanup = function () {
       cancelAnimationFrame(rafId);
       viewport.removeEventListener('pointerdown', onPointerDown);
@@ -122,6 +148,7 @@
       window.removeEventListener('pointerup', onPointerUp);
       viewport.removeEventListener('mouseenter', onEnter);
       viewport.removeEventListener('mouseleave', onLeave);
+      if (progressObserver) progressObserver.disconnect();
     };
   }
 
