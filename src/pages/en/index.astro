@@ -52,8 +52,16 @@ const t = useTranslations('en');
       </div>
     </div>
     <p class="lieu-carousel-hint">Drag to spin the gallery →</p>
-    <div class="lieu-carousel-progress" id="lieu-carousel-progress" aria-hidden="true">
-      {lieux.map((_, i) => <span data-index={i}></span>)}
+    <div class="lieu-carousel-controls">
+      <button class="lieu-carousel-arrow" id="lieu-carousel-prev" type="button" aria-label="Previous place">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6" /></svg>
+      </button>
+      <div class="lieu-carousel-progress" id="lieu-carousel-progress" aria-hidden="true">
+        {lieux.map((_, i) => <span data-index={i}></span>)}
+      </div>
+      <button class="lieu-carousel-arrow" id="lieu-carousel-next" type="button" aria-label="Next place">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6" /></svg>
+      </button>
     </div>
   </section>
 

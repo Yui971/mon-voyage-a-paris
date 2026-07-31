@@ -721,7 +721,7 @@ section {
   margin-top: 18px;
 }
 
-.lieu-carousel-progress {
+.lieu-carousel-controls {
   display: none;
 }
 
@@ -738,6 +738,12 @@ section {
     padding: 6px 11vw 12px;
     margin: 0 -24px;
     -webkit-overflow-scrolling: touch;
+    /* The desktop rule locks touch to vertical panning so drag-to-rotate
+       owns horizontal gestures via JS; here there's no JS handling touch,
+       so swiping needs to be handed back to native horizontal scrolling. */
+    touch-action: pan-x pan-y;
+    -webkit-user-select: auto;
+    user-select: auto;
   }
 
   .lieu-carousel-track {
@@ -766,12 +772,18 @@ section {
     display: none;
   }
 
-  .lieu-carousel-progress {
+  .lieu-carousel-controls {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 18px;
     margin-top: 22px;
+  }
+
+  .lieu-carousel-progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
   .lieu-carousel-progress span {
@@ -785,6 +797,30 @@ section {
   .lieu-carousel-progress span.is-active {
     background: var(--color-gold);
     transform: scale(1.5);
+  }
+
+  .lieu-carousel-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    border: 1.5px solid var(--color-navy);
+    background: transparent;
+    color: var(--color-navy);
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  }
+
+  .lieu-carousel-arrow:hover {
+    background: var(--color-navy);
+    color: var(--color-bg);
+  }
+
+  .lieu-carousel-arrow:active {
+    transform: scale(0.92);
   }
 }
 

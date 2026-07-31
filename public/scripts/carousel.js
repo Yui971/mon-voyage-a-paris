@@ -116,10 +116,12 @@
     rafId = requestAnimationFrame(tick);
 
     // Mobile fallback is a plain horizontal scroller; track which card is
-    // centered so the dot progress indicator underneath can follow along.
+    // centered so the dot progress indicator (and the prev/next arrows)
+    // underneath can follow along.
     var progress = document.getElementById('lieu-carousel-progress');
     var dots = progress ? Array.from(progress.querySelectorAll('span')) : [];
     var progressObserver = null;
+    var currentIndex = 0;
 
     if (dots.length === slots.length) {
       progressObserver = new IntersectionObserver(
@@ -128,6 +130,7 @@
             if (!entry.isIntersecting) return;
             var idx = slots.indexOf(entry.target);
             if (idx === -1) return;
+            currentIndex = idx;
             dots.forEach(function (dot, i) {
               dot.classList.toggle('is-active', i === idx);
             });
@@ -141,6 +144,25 @@
       dots[0].classList.add('is-active');
     }
 
+    var prevBtn = document.getElementById('lieu-carousel-prev');
+    var nextBtn = document.getElementById('lieu-carousel-next');
+
+    function goToSlide(index) {
+      var clamped = Math.max(0, Math.min(slots.length - 1, index));
+      slots[clamped].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+
+    function onPrevClick() {
+      goToSlide(currentIndex - 1);
+    }
+
+    function onNextClick() {
+      goToSlide(currentIndex + 1);
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', onPrevClick);
+    if (nextBtn) nextBtn.addEventListener('click', onNextClick);
+
     viewport._carouselCleanup = function () {
       cancelAnimationFrame(rafId);
       viewport.removeEventListener('pointerdown', onPointerDown);
@@ -149,6 +171,8 @@
       viewport.removeEventListener('mouseenter', onEnter);
       viewport.removeEventListener('mouseleave', onLeave);
       if (progressObserver) progressObserver.disconnect();
+      if (prevBtn) prevBtn.removeEventListener('click', onPrevClick);
+      if (nextBtn) nextBtn.removeEventListener('click', onNextClick);
     };
   }
 
